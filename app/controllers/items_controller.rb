@@ -18,6 +18,14 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.find(params[:id])
+    @category = Category.data.find{|o| o[:id] == @item.category_id}
+    @condition = Condition.data.find{|o| o[:id] == @item.condition_id}
+    @delivery_day = DeliveryDay.data.find{|o| o[:id] == @item.delivery_day_id}
+    @ship_from_region = ShipFromRegion.data.find{|o| o[:id] == @item.ship_from_region_id}
+    @shipping_fee_person = ShippingFeePerson.data.find{|o| o[:id] == @item.shipping_fee_person_id}
+  end
   private
 
   def item_params
