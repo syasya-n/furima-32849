@@ -1,12 +1,13 @@
 class OrderInformation
   include ActiveModel::Model
-  attr_accessor :post_code,:region_id,:city,:address,:building,:phone_number,:item_id,:user_id
+  attr_accessor :post_code,:region_id,:city,:address,:building,:phone_number,:item_id,:user_id,:token
 
   POST_CODE_REGEX = /\A\d{3}[-]\d{4}\z/
-  PHONE_NUMBER_REGEX = /\A\d{,11}\z/
+  PHONE_NUMBER_REGEX = /\A\d{1,11}\z/
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   with_options presence: true do
+    validates :token
     validates :post_code,format: {with:POST_CODE_REGEX,message: 'Input correctly'}
     validates :city
     validates :address
