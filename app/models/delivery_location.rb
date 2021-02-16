@@ -1,0 +1,3 @@
+class DeliveryLocation < ApplicationRecord
+  belongs_to :order
+end
