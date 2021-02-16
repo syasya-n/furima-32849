@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe OrderInformation, type: :model do
   before do
-    @order_information = FactoryBot.build(:order_information)
+    @user = FactoryBot.build(:user)
+    @item = FactoryBot.build(:item)
+    @order_information = FactoryBot.build(:order_information,user_id:@user.id,item_id:@item.id)
   end
 
   describe '商品購入' do
@@ -43,7 +45,7 @@ RSpec.describe OrderInformation, type: :model do
       end
 
       it '都道府県が初期値"---"なら購入できないこと' do
-        @order_information.region_id = "1"
+        @order_information.region_id = 1
         @order_information.valid?
         expect(@order_information.errors.full_messages).to include("Region Select")
       end
@@ -82,6 +84,18 @@ RSpec.describe OrderInformation, type: :model do
         @order_information.token = nil
         @order_information.valid?
         expect(@order_information.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it 'user_idが空なら購入できないこと' do
+        @order_information.user_id = nil
+        @order_information.valid?
+        expect(@order_information.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空なら購入できないこと' do
+        @order_information.item_id = nil
+        @order_information.valid?
+        expect(@order_information.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

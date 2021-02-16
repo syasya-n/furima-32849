@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :item do
+    id                     {10}
     name                   { Faker::Lorem.sentence }
     description            { Faker::Internet.free_email }
     category_id            { 2 }
